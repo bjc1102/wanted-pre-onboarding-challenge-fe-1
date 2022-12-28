@@ -17,12 +17,12 @@ const useForm = ({ initialValue, validate }: FormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(validate(values));
     console.log(values);
-    console.log(error);
   };
 
-  //   useEffect(() => {}, []);
+  useEffect(() => {
+    setError(validate(values));
+  }, [values]);
 
   return {
     values,
