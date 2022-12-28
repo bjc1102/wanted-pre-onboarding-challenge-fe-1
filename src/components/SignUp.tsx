@@ -1,20 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
 import { createObjType, SignType } from "../types/util";
+import submit from "../utils/submit";
 import signValidation, { isFormValidate } from "../utils/validate";
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const onSubmit = async (value: createObjType<SignType>) => {
     const result = await API.signup(value);
-    if (result.status === 200) {
-      localStorage.setItem("token", result.data.token);
-      navigate("/");
-    } else alert("서버와 통신 중 에러가 발생했습니다.");
+    submit(result);
   };
+
   const { handleChange, handleSubmit, error } = useForm({
     initialValue,
     validate: signValidation,
@@ -50,7 +47,7 @@ const SignUp = () => {
             onChange={handleChange}
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             type="password"
-            placeholder="비밀번호 8자리 이상"
+            placeholder="비밀번호는 8자리 이상이어야 합니다"
             name="password"
           />
         </div>

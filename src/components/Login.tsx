@@ -1,17 +1,42 @@
 import React from "react";
+import { initialValue } from "../pages/Auth";
+import { Link } from "react-router-dom";
+import useForm from "../hooks/useForm";
+import signValidation, { isFormValidate } from "../utils/validate";
+import { createObjType, SignType } from "../types/util";
+import API from "../lib/instance";
+import submit from "../utils/submit";
 
 const Login = () => {
+  const onSubmit = async (value: createObjType<SignType>) => {
+    const result = await API.signin(value);
+    console.log(result);
+    submit(result);
+  };
+
+  const { handleChange, handleSubmit, error } = useForm({
+    initialValue,
+    validate: signValidation,
+    onSubmit,
+  });
+
+  console.log(error);
+
   return (
     <div className="w-full max-w-xs">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Email
           </label>
           <input
+            onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="email"
-            placeholder="Email"
+            placeholder="example@example.com"
             name="email"
           />
         </div>
@@ -20,25 +45,26 @@ const Login = () => {
             Password
           </label>
           <input
+            onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             type="password"
-            placeholder="******************"
+            placeholder="비밀번호는 8자리 이상이어야 합니다"
             name="password"
           />
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            disabled={isFormValidate(error)}
+            className="disabled:opacity-75 disabled:text-gray-300 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
           >
             로그인
           </button>
-          <a
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            href="#"
-          >
-            회원가입하기
-          </a>
+          <Link to="/auth/signup">
+            <span className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+              회원가입하기
+            </span>
+          </Link>
         </div>
       </form>
       <p className="text-center text-gray-500 text-xs">

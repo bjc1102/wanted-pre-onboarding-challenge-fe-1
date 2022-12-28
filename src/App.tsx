@@ -1,16 +1,10 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-
-import Auth from "./pages/Auth";
+import react from "react";
+import Router from "./lib/Router";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App min-h-screen flex flex-col justify-center items-center">
-      <Routes>
-        <Route path="/auth/*" element={<Auth />} />
-      </Routes>
+      <Router />
     </div>
   );
 }
