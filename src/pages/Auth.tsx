@@ -1,9 +1,20 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Login from "../components/Login";
+import SignUp from "../components/SignUp";
 
-type Props = {};
+export const initialValue = {
+  email: "",
+  password: "",
+};
 
-const Auth = (props: Props) => {
-  return <div>Auth</div>;
+const Auth = () => {
+  return (
+    <Routes>
+      <Route path="" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
+    </Routes>
+  );
 };
 
 export default Auth;
