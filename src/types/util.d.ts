@@ -4,9 +4,9 @@ type createObjType<T> = {
   [Property in keyof T]: T[Property];
 };
 
-type valueType = typeof initialValue;
+type SignType = typeof initialValue;
 
-type validationProps = {
+type ErrorProps = {
   email?: typeof initialValue.email;
   password?: typeof initialValue.password;
 };

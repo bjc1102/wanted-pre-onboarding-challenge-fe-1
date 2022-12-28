@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { createObjType, validationProps, valueType } from "../types/util";
+import { createObjType, ErrorProps, SignType } from "../types/util";
 
 interface FormProps {
-  initialValue: createObjType<valueType>;
-  validate: (initialValue: validationProps) => validationProps;
+  initialValue: createObjType<SignType>;
+  validate: (initialValue: ErrorProps) => ErrorProps;
 }
 
 const useForm = ({ initialValue, validate }: FormProps) => {
   const [values, setValues] = React.useState(initialValue);
-  const [error, setError] = React.useState({});
+  const [error, setError] = React.useState<ErrorProps>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

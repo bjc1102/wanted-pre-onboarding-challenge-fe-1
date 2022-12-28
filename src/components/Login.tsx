@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   return (
     <div className="w-full max-w-xs">
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

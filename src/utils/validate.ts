@@ -1,7 +1,7 @@
-import { validationProps, valueType } from "../types/util";
+import { ErrorProps } from "../types/util";
 
-export default function signValidation({ email, password }: validationProps) {
-  const errors: validationProps = {};
+export default function signValidation({ email, password }: ErrorProps) {
+  const errors: ErrorProps = {};
 
   if (!email) {
     errors.email = "이메일이 입력되지 않았습니다.";
@@ -18,7 +18,7 @@ export default function signValidation({ email, password }: validationProps) {
   return errors;
 }
 
-export const isFormValidate = (error: validationProps) => {
+export const isFormValidate = (error: ErrorProps) => {
   //error가 있다면, value값이 입력되지 않았다면
   if (!!Object.keys(error).length) return true;
   return false;
