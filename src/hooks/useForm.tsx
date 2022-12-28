@@ -1,12 +1,14 @@
+import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
 import { createObjType, ErrorProps, SignType } from "../types/util";
 
 interface FormProps {
   initialValue: createObjType<SignType>;
   validate: (initialValue: ErrorProps) => ErrorProps;
+  onSubmit: (value: createObjType<SignType>) => void;
 }
 
-const useForm = ({ initialValue, validate }: FormProps) => {
+const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   const [values, setValues] = React.useState(initialValue);
   const [error, setError] = React.useState<ErrorProps>({});
 
@@ -15,9 +17,9 @@ const useForm = ({ initialValue, validate }: FormProps) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    onSubmit(values);
   };
 
   useEffect(() => {

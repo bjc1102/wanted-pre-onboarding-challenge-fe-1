@@ -1,12 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
+import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
+import { createObjType, SignType } from "../types/util";
 import signValidation, { isFormValidate } from "../utils/validate";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const onSubmit = async (value: createObjType<SignType>) => {
+    const result = await API.signup(value);
+    if (result.status === 200) {
+      localStorage.setItem("token", result.data.token);
+      navigate("/");
+    } else alert("서버와 통신 중 에러가 발생했습니다.");
+  };
   const { handleChange, handleSubmit, error } = useForm({
     initialValue,
     validate: signValidation,
+    onSubmit,
   });
 
   return (
