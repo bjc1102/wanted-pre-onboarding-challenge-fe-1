@@ -1,11 +1,10 @@
-import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
-import { createObjType, ErrorProps, SignType } from "../types/util";
+import { ErrorProps, SignType } from "../types/form";
 
 interface FormProps {
-  initialValue: createObjType<SignType>;
-  validate: (initialValue: ErrorProps) => ErrorProps;
-  onSubmit: (value: createObjType<SignType>) => void;
+  initialValue: SignType;
+  validate?: (initialValue: ErrorProps) => ErrorProps;
+  onSubmit: (value: SignType) => void;
 }
 
 const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
@@ -14,7 +13,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+    setValues((prev: SignType) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +22,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   };
 
   useEffect(() => {
-    setError(validate(values));
+    validate && setError(validate(values));
   }, [values]);
 
   return {

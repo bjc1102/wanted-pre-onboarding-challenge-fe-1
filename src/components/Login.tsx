@@ -3,12 +3,12 @@ import { initialValue } from "../pages/Auth";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import signValidation, { isFormValidate } from "../utils/validate";
-import { createObjType, SignType } from "../types/util";
+import { SignType } from "../types/form";
 import API from "../lib/instance";
 import submit from "../utils/submit";
 
 const Login = () => {
-  const onSubmit = async (value: createObjType<SignType>) => {
+  const onSubmit = async (value: SignType) => {
     const result = await API.signin(value);
     console.log(result);
     submit(result);

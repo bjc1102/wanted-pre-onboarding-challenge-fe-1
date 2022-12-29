@@ -2,12 +2,12 @@ import React from "react";
 import useForm from "../hooks/useForm";
 import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
-import { createObjType, SignType } from "../types/util";
+import { SignType } from "../types/form";
 import submit from "../utils/submit";
 import signValidation, { isFormValidate } from "../utils/validate";
 
 const SignUp = () => {
-  const onSubmit = async (value: createObjType<SignType>) => {
+  const onSubmit = async (value: SignType) => {
     const result = await API.signup(value);
     submit(result);
   };

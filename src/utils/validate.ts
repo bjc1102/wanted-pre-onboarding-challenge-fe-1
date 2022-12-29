@@ -1,4 +1,4 @@
-import { ErrorProps } from "../types/util";
+import { ErrorProps } from "../types/form";
 
 export default function signValidation({ email, password }: ErrorProps) {
   const errors: ErrorProps = {};
