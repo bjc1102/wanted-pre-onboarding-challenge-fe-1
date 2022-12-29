@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import TodoList from "../components/TodoList";
 
 type Props = {};
 
@@ -11,7 +12,7 @@ const Home = (props: Props) => {
     if (token === null) navigate("/auth", { replace: true });
   }, []);
 
-  return <div>Home</div>;
+  return <TodoList />;
 };
 
 export default Home;
