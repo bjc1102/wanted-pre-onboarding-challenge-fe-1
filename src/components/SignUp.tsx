@@ -1,15 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
 import { SignType } from "../types/form";
-import submit from "../utils/submit";
 import signValidation, { isFormValidate } from "../utils/validate";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const onSubmit = async (value: SignType) => {
     const result = await API.signup(value);
-    submit(result);
+    if (result.status === 200) {
+      localStorage.setItem("token", result.data.token);
+      navigate("/");
+    }
   };
 
   const { handleChange, handleSubmit, error } = useForm({

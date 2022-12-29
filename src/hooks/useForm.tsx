@@ -13,7 +13,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setValues((prev: SignType) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
