@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { ErrorProps, SignType } from "../types/form";
+import { TodoType } from "../types/todo";
 
 interface FormProps {
-  initialValue: SignType;
-  validate?: (initialValue: ErrorProps) => ErrorProps;
-  onSubmit: (value: SignType) => void;
+  initialValue: SignType | TodoType;
+  validate?: (initialValue: SignType) => ErrorProps;
+  onSubmit: (value: SignType | TodoType) => void;
 }
 
 const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
@@ -22,7 +23,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   };
 
   useEffect(() => {
-    validate && setError(validate(values));
+    if (validate) setError(validate(values as SignType));
   }, [values]);
 
   return {

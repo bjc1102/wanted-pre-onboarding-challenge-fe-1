@@ -1,7 +1,7 @@
 import React from "react";
 
 const useSign = () => {
-  return <div>useSign</div>;
+  return null;
 };
 
 export default useSign;
