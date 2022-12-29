@@ -1,3 +1,3 @@
-// export type createObjType<T> = {
-//   [Property in keyof T]: T[Property];
-// };
+export type createObjType<T> = {
+  [Property in keyof T]: T[Property];
+};
