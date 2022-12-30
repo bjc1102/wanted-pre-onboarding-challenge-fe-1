@@ -5,7 +5,7 @@ import { ValueType } from "../types/util";
 
 interface SubmitType {
   API: (value: ValueType) => Promise<AxiosResponse<any, any>>;
-  Logic: (value: any) => any;
+  Logic: (value: any) => void;
 }
 interface FormProps {
   initialValue: ValueType;

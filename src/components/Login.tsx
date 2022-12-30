@@ -5,15 +5,12 @@ import useForm from "../hooks/useForm";
 import { SignType } from "../types/form";
 import API from "../lib/instance";
 import { ValueType } from "../types/util";
-import { AxiosResponse } from "axios";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
   const LoginAPI = (value: ValueType) => API.signin(value as SignType);
-  const LoginLogic = (token: string) => {
-    localStorage.setItem("token", token);
-    navigate("/");
-  };
+  const LoginLogic = useLogin();
+
   const onSubmit = () => {
     return {
       API: LoginAPI,

@@ -1,19 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
 import { SignType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
 import { ValueType } from "../types/util";
+import useLogin from "../hooks/useLogin";
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
   const LoginAPI = (value: ValueType) => API.signup(value as SignType);
-  const LoginLogic = (token: string) => {
-    localStorage.setItem("token", token);
-    navigate("/");
-  };
+  const LoginLogic = useLogin();
+
   const onSubmit = () => {
     return {
       API: LoginAPI,
