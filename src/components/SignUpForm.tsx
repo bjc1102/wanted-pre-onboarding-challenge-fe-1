@@ -6,14 +6,19 @@ import { initialValue } from "../pages/Auth";
 import { SignType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
 import { ValueType } from "../types/util";
-import { AxiosError, AxiosResponse } from "axios";
 
 const SignUpForm = () => {
-  const onSubmit = async (value: ValueType) => {
-    const result = API.signup(value as SignType)
-      .then((response) => response)
-      .catch((error: AxiosError<any, any>) => error);
-    return result;
+  const navigate = useNavigate();
+  const LoginAPI = (value: ValueType) => API.signup(value as SignType);
+  const LoginLogic = (token: string) => {
+    localStorage.setItem("token", token);
+    navigate("/");
+  };
+  const onSubmit = () => {
+    return {
+      API: LoginAPI,
+      Logic: LoginLogic,
+    };
   };
 
   const { handleChange, handleSubmit, error } = useForm({
@@ -53,6 +58,7 @@ const SignUpForm = () => {
             type="password"
             placeholder="비밀번호는 8자리 이상이어야 합니다"
             name="password"
+            minLength={8}
           />
         </div>
       </div>
