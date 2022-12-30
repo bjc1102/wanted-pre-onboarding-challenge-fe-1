@@ -28,7 +28,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
     API(values)
       .then((response) => {
-        Logic(response.data.token);
+        Logic(response);
       })
       .catch((error) => setError({ error: "에러가 발생했습니다." }));
   };
