@@ -6,4 +6,4 @@ export type createObjType<T> = {
   [Property in keyof T]: T[Property];
 };
 
-type ValueType = SignType | TodoType;
+export type ValueType = SignType | TodoType;

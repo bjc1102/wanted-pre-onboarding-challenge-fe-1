@@ -5,7 +5,7 @@ import { ValueType } from "../types/util";
 
 interface SubmitType {
   API: (value: ValueType) => Promise<AxiosResponse<any, any>>;
-  Logic: (value: any) => void;
+  onSuccess: (value: any) => void;
 }
 interface FormProps {
   initialValue: ValueType;
@@ -24,17 +24,18 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { API, Logic } = onSubmit();
+    const { API, onSuccess } = onSubmit();
 
     API(values)
       .then((response) => {
-        Logic(response);
+        onSuccess(response);
       })
       .catch((error) => setError({ error: "에러가 발생했습니다." }));
   };
 
   useEffect(() => {
-    if (validate) setError(validate(values as SignType));
+    if (validate && "email" in initialValue)
+      setError(validate(values as SignType));
   }, [values]);
 
   return {
