@@ -2,27 +2,23 @@ import React from "react";
 import { initialValue } from "../pages/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
-import signValidation, { isFormValidate } from "../utils/validate";
 import { SignType } from "../types/form";
 import API from "../lib/instance";
+import { ValueType } from "../types/util";
+import { AxiosResponse } from "axios";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const onSubmit = async (value: SignType) => {
-    const result = await API.signin(value);
-    if (result.status === 200) {
-      localStorage.setItem("token", result.data.token);
-      navigate("/");
-    }
+  const onSubmit = (value: ValueType) => {
+    const result = API.signin(value as SignType)
+      .then((response) => response)
+      .catch((error: AxiosResponse<any, any>) => error);
+    return result;
   };
 
   const { handleChange, handleSubmit, error } = useForm({
     initialValue,
-    validate: signValidation,
     onSubmit,
   });
-
-  console.log(error);
 
   return (
     <div className="w-full max-w-xs">
@@ -40,6 +36,7 @@ const Login = () => {
             type="email"
             placeholder="example@example.com"
             name="email"
+            required
           />
         </div>
         <div className="mb-6">
@@ -52,11 +49,11 @@ const Login = () => {
             type="password"
             placeholder="비밀번호는 8자리 이상이어야 합니다"
             name="password"
+            required
           />
         </div>
         <div className="flex items-center justify-between">
           <button
-            disabled={isFormValidate(error)}
             className="disabled:opacity-75 disabled:text-gray-300 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
@@ -69,9 +66,9 @@ const Login = () => {
           </Link>
         </div>
       </form>
-      <p className="text-center text-gray-500 text-xs">
-        &copy;2020 Acme Corp. All rights reserved.
-      </p>
+      {error.error && (
+        <p className="text-center text-red-500 text-xs">{error.error}</p>
+      )}
     </div>
   );
 };

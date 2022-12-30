@@ -1,11 +1,14 @@
+import { AxiosError, AxiosResponse } from "axios";
 import React, { useEffect } from "react";
 import { ErrorProps, SignType } from "../types/form";
-import { TodoType } from "../types/todo";
+import { ValueType } from "../types/util";
 
 interface FormProps {
-  initialValue: SignType | TodoType;
+  initialValue: ValueType;
   validate?: (initialValue: SignType) => ErrorProps;
-  onSubmit: (value: SignType | TodoType) => void;
+  onSubmit: (
+    value: ValueType
+  ) => Promise<AxiosError<any, any> | AxiosResponse<any, any>>;
 }
 
 const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
@@ -19,7 +22,10 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(values);
+    const result = await onSubmit(values);
+    if (result instanceof AxiosError<any, any>)
+      setError({ ...error, error: "에러가 발생했습니다" });
+    else console.log("실행성공");
   };
 
   useEffect(() => {

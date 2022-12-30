@@ -5,15 +5,15 @@ import API from "../lib/instance";
 import { initialValue } from "../pages/Auth";
 import { SignType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
+import { ValueType } from "../types/util";
+import { AxiosError, AxiosResponse } from "axios";
 
-const SignUp = () => {
-  const navigate = useNavigate();
-  const onSubmit = async (value: SignType) => {
-    const result = await API.signup(value);
-    if (result.status === 200) {
-      localStorage.setItem("token", result.data.token);
-      navigate("/");
-    }
+const SignUpForm = () => {
+  const onSubmit = async (value: ValueType) => {
+    const result = API.signup(value as SignType)
+      .then((response) => response)
+      .catch((error: AxiosError<any, any>) => error);
+    return result;
   };
 
   const { handleChange, handleSubmit, error } = useForm({
@@ -72,4 +72,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

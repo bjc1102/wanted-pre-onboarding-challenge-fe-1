@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login";
-import SignUp from "../components/SignUp";
+import SignUp from "./SignUp";
 
 export const initialValue = {
   email: "",
@@ -9,12 +9,7 @@ export const initialValue = {
 };
 
 const Auth = () => {
-  return (
-    <Routes>
-      <Route path="" element={<Login />} />
-      <Route path="signup" element={<SignUp />} />
-    </Routes>
-  );
+  return <Login />;
 };
 
 export default Auth;
