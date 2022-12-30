@@ -1,6 +1,6 @@
 import React from "react";
 import { initialValue } from "../pages/Auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { SignType } from "../types/form";
 import API from "../lib/instance";
@@ -14,7 +14,7 @@ const Login = () => {
   const onSubmit = () => {
     return {
       API: LoginAPI,
-      Logic: LoginLogic,
+      onSuccess: LoginLogic,
     };
   };
 

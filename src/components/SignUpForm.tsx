@@ -14,7 +14,7 @@ const SignUpForm = () => {
   const onSubmit = () => {
     return {
       API: LoginAPI,
-      Logic: LoginLogic,
+      onSuccess: LoginLogic,
     };
   };
 
