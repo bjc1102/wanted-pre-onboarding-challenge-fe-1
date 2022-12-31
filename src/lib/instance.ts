@@ -15,6 +15,12 @@ const API = {
   getTodo: async () => {
     return await instance.get("/todos");
   },
+  updateTodo: async (value: TodoType, id: string) => {
+    return await instance.put(`/todos/${id}`, value);
+  },
+  deleteTodo: async (id: string) => {
+    return await instance.delete(`/todos/${id}`);
+  },
 };
 
 export default API;
