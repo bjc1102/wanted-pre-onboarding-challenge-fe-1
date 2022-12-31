@@ -1,7 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Login from "../components/Login";
-import SignUp from "./SignUp";
+import LoginForm from "../components/LoginForm";
 
 export const initialValue = {
   email: "",
@@ -9,7 +7,7 @@ export const initialValue = {
 };
 
 const Auth = () => {
-  return <Login />;
+  return <LoginForm />;
 };
 
 export default Auth;

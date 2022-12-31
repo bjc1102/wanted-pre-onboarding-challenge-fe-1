@@ -11,12 +11,12 @@ import { AxiosResponse } from "axios";
 
 interface WriteTodoProps {
   setOpen: () => void;
-  setTodo: (value: TodoDataType) => void;
+  createTodo: (value: TodoDataType) => void;
 }
 
-const WriteTodo = ({ setOpen, setTodo }: WriteTodoProps) => {
+const WriteTodo = ({ setOpen, createTodo }: WriteTodoProps) => {
   const onSuccess = (response: AxiosResponse<any, any>) => {
-    setTodo(response.data.data);
+    createTodo(response.data.data);
     setOpen();
   };
   const createTodoAPI = (value: ValueType) => API.createTodo(value as TodoType);

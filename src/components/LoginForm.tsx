@@ -7,7 +7,7 @@ import API from "../lib/instance";
 import { ValueType } from "../types/util";
 import useLogin from "../hooks/useLogin";
 
-const Login = () => {
+const LoginForm = () => {
   const LoginAPI = (value: ValueType) => API.signin(value as SignType);
   const LoginLogic = useLogin();
 
@@ -80,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

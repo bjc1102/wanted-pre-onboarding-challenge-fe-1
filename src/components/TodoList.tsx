@@ -17,7 +17,8 @@ const TodoList = () => {
   const [todos, setTodos] = React.useState<TodoDataType[]>([]);
 
   const setOpen = () => setIsOpen(!isOpen);
-  const setTodo = (value: TodoDataType) => setTodos((prev) => [value, ...prev]);
+  const createTodo = (value: TodoDataType) =>
+    setTodos((prev) => [value, ...prev]);
 
   const todoSpreader = () => {
     if (todos.length === 0)
@@ -40,7 +41,7 @@ const TodoList = () => {
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
         <AnimatePresence>
-          {isOpen && <WriteTodo setOpen={setOpen} setTodo={setTodo} />}
+          {isOpen && <WriteTodo setOpen={setOpen} createTodo={createTodo} />}
         </AnimatePresence>
         {todoSpreader()}
       </ul>
