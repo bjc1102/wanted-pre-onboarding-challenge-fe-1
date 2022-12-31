@@ -3,19 +3,46 @@ import { AnimatePresence, motion } from "framer-motion";
 import { TodoVars } from "../utils/animation";
 import { TodoDataType } from "../types/todo";
 import { useSearchParams } from "react-router-dom";
+import DeleteTodo from "./DeleteTodo";
+import UpdateTodo from "./UpdateTodo";
 
-const Todo = ({ id, title, content }: TodoDataType) => {
+interface TodoProps extends TodoDataType {
+  index: number;
+  updateTodo: (todo: TodoDataType, index: number) => void;
+  deleteTodo: (index: number) => void;
+}
+
+const Todo = ({
+  id,
+  title,
+  content,
+  index,
+  updateTodo,
+  deleteTodo,
+}: TodoProps) => {
   const [searchParam, setSearchParam] = useSearchParams();
-  const handleClick = () => setSearchParam({ id: id });
+  const [isReadMode, setIsReadMode] = React.useState(false);
+  const isOpen = () => searchParam.get("id") === id;
+  const handleClick = () => {
+    if (isOpen()) setSearchParam("");
+    else setSearchParam({ id: id });
+  };
+  const deleteTodoData = (index: number) => {
+    setSearchParam("", { replace: true });
+    deleteTodo(index);
+  };
 
   return (
     <li onClick={handleClick} className="py-4 px-5">
-      <div className="relative px-0 py-2 flex items-center w-full text-base text-gray-800 text-left bg-white border-0 rounded-none focus:outline-none">
+      <div className="relative px-0 py-2 flex justify-between items-center w-full text-base text-gray-800 text-left bg-white border-0 rounded-none focus:outline-none">
         {title}
-        <div>{/* 수정/삭제버튼 위치 */}</div>
+        <div className="flex justify-center items-center gap-2">
+          <UpdateTodo updateTodo={updateTodo} id={id} index={index} />
+          <DeleteTodo deleteTodo={deleteTodoData} id={id} index={index} />
+        </div>
       </div>
       <AnimatePresence mode="wait">
-        {true && (
+        {isOpen() && (
           <motion.div
             variants={TodoVars}
             initial="start"

@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import API from "../lib/instance";
 import { TodoDataType } from "../types/todo";
+import { todoSlice } from "../utils/todoSlice";
 import AddBtn from "./AddBtn";
 import Todo from "./Todo";
 import WriteTodo from "./WriteTodo";
@@ -17,13 +18,32 @@ const TodoList = () => {
   const [todos, setTodos] = React.useState<TodoDataType[]>([]);
 
   const setOpen = () => setIsOpen(!isOpen);
+
   const createTodo = (value: TodoDataType) =>
-    setTodos((prev) => [value, ...prev]);
+    setTodos((prev) => [...prev, value]);
+  const updateTodo = (todo: TodoDataType, index: number) =>
+    setTodos((todos) => {
+      const { prev, next } = todoSlice(todos, index);
+      return [...prev, todo, ...next];
+    });
+  const deleteTodo = (index: number) =>
+    setTodos((todos) => {
+      const { prev, next } = todoSlice(todos, index);
+      return [...prev, ...next];
+    });
 
   const todoSpreader = () => {
     if (todos.length === 0)
       return <p className="text-center">TODO를 등록해주세요!</p>;
-    return todos.map((v, index) => <Todo key={v.id} {...v} />);
+    return todos.map((v, index) => (
+      <Todo
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+        key={v.id}
+        index={index}
+        {...v}
+      />
+    ));
   };
 
   React.useEffect(() => {
