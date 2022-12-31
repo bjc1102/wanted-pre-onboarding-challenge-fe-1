@@ -17,7 +17,9 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   const [values, setValues] = React.useState(initialValue);
   const [error, setError] = React.useState<ErrorProps>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
   };
