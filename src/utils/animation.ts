@@ -1,4 +1,4 @@
-export const TabVars = {
+export const TodoVars = {
   start: {
     height: 0,
     opacity: 0,
