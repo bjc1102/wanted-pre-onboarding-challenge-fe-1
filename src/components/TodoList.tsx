@@ -1,25 +1,28 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import API from "../lib/instance";
-import { TodoType } from "../types/todo";
+import { TodoDataType } from "../types/todo";
 import AddBtn from "./AddBtn";
-import Tab from "./Tab";
-import WriteTab from "./WriteTab";
+import Todo from "./Todo";
+import WriteTodo from "./WriteTodo";
 
 export const initialTodo = {
   title: "",
-  description: "",
+  content: "",
 };
 
 const TodoList = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [todos, setTodos] = React.useState<TodoDataType[]>([]);
+
   const setOpen = () => setIsOpen(!isOpen);
-  const [todos, setTodos] = React.useState<TodoType[]>([]);
+  const setTodo = (value: TodoDataType) => setTodos((prev) => [value, ...prev]);
 
   const todoSpreader = () => {
     if (todos.length === 0)
       return <p className="text-center">TODO를 등록해주세요!</p>;
-    return todos.map((v, index) => <Tab key={index} num={index} />);
+    return todos.map((v, index) => <Todo key={v.id} {...v} />);
   };
 
   React.useEffect(() => {
@@ -36,7 +39,9 @@ const TodoList = () => {
         <AddBtn setOpen={setOpen} />
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
-        <AnimatePresence>{isOpen && <WriteTab />}</AnimatePresence>
+        <AnimatePresence>
+          {isOpen && <WriteTodo setOpen={setOpen} setTodo={setTodo} />}
+        </AnimatePresence>
         {todoSpreader()}
       </ul>
     </div>
