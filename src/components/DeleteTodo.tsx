@@ -1,9 +1,12 @@
 import React from "react";
 import Xmark from "../assets/Xmark";
 import API from "../lib/instance";
-import { handleTodoDataType } from "../types/todo";
 
-interface DeleteTodoProps extends handleTodoDataType {
+interface DeleteTodoProps {
+  id: string;
+  index: number;
+  title?: string;
+  content?: string;
   deleteTodo: (index: number) => void;
 }
 

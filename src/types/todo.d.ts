@@ -5,6 +5,6 @@ export type TodoType = createObjType<typeof initialTodo>;
 
 export interface TodoDataType extends TodoType {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

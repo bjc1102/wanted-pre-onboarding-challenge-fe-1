@@ -2,7 +2,6 @@ import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
 import { ErrorProps, SignType } from "../types/form";
 import { TodoType } from "../types/todo";
-import { ValueType } from "../types/util";
 
 type FormInitialValueType = SignType | TodoType;
 interface SubmitType {
