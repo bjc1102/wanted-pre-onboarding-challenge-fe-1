@@ -1,4 +1,6 @@
 import axios, { AxiosRequestHeaders } from "axios";
+import handleToken from "../utils/handleToken";
+import history from "./history";
 
 const baseURL = "http://localhost:8080";
 
@@ -31,6 +33,16 @@ instance.interceptors.request.use(
   (error) => {
     //요청 에러가 발생했을 때 수행할 로직
     return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    handleToken();
+    return Promise.resolve();
   }
 );
 
