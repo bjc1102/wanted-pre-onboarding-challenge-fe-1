@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import React from "react";
 import useForm from "../hooks/useForm";
 import API from "../lib/instance";
@@ -9,13 +10,15 @@ interface UpdateTodoProps {
   id: string;
   title: string;
   content: string;
-  updateTodo: () => void;
+  updateTodo: (todo: TodoType) => void;
 }
 
 const UpdateTodo = ({ id, title, content, updateTodo }: UpdateTodoProps) => {
   const UpdateAPI = (value: ValueType) => API.updateTodo(value as TodoType, id);
-  const handleUpdate = () => updateTodo();
-
+  const handleUpdate = (response: AxiosResponse<any, any>) => {
+    const { title: updatedTitle, content: updatedContent } = response.data.data;
+    updateTodo({ title: updatedTitle, content: updatedContent });
+  };
   const onSubmit = () => {
     return {
       API: UpdateAPI,
