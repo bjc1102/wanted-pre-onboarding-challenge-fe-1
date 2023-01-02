@@ -10,8 +10,6 @@ interface TodoFormProps {
 }
 
 const TodoForm = ({ value, handleChange, handleSubmit }: TodoFormProps) => {
-  console.log(value);
-
   return (
     <form onSubmit={handleSubmit}>
       <input

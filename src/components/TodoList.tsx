@@ -24,6 +24,7 @@ const TodoList = () => {
     setTodos((todos) => {
       const { prev, next } = todoSlice(todos, index);
       const updatedTodo = Object.assign(todos[index], todo);
+
       return [...prev, updatedTodo, ...next];
     });
   const deleteTodo = (index: number) =>
