@@ -6,6 +6,7 @@ import { SignType } from "../types/form";
 import API from "../lib/instance";
 import { ValueType } from "../types/util";
 import useLogin from "../hooks/useLogin";
+import signValidation, { isFormValidate } from "../utils/validate";
 
 const LoginForm = () => {
   const LoginAPI = (value: ValueType) => API.signin(value as SignType);
@@ -20,6 +21,7 @@ const LoginForm = () => {
 
   const { handleChange, handleSubmit, error } = useForm({
     initialValue,
+    validate: signValidation,
     onSubmit,
   });
 
@@ -58,6 +60,7 @@ const LoginForm = () => {
           </div>
           <div className="flex items-center justify-between">
             <button
+              disabled={isFormValidate(error)}
               className="disabled:opacity-75 disabled:text-gray-300 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
