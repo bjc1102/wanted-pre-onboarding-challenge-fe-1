@@ -1,8 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import API from "../lib/instance";
-import { TodoDataType } from "../types/todo";
+import { TodoDataType, TodoType } from "../types/todo";
 import { todoSlice } from "../utils/todoSlice";
 import AddBtn from "./AddBtn";
 import Todo from "./Todo";
@@ -21,10 +20,11 @@ const TodoList = () => {
 
   const createTodo = (value: TodoDataType) =>
     setTodos((prev) => [...prev, value]);
-  const updateTodo = (todo: TodoDataType, index: number) =>
+  const updateTodo = (todo: TodoType, index: number) =>
     setTodos((todos) => {
       const { prev, next } = todoSlice(todos, index);
-      return [...prev, todo, ...next];
+      const updatedTodo = Object.assign(todos[index], todo);
+      return [...prev, updatedTodo, ...next];
     });
   const deleteTodo = (index: number) =>
     setTodos((todos) => {

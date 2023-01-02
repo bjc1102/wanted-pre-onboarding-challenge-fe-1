@@ -1,16 +1,39 @@
 import React from "react";
-import PenSquare from "../assets/PenSquare";
-import { handleTodoDataType, TodoDataType } from "../types/todo";
+import useForm from "../hooks/useForm";
+import API from "../lib/instance";
+import { TodoType } from "../types/todo";
+import { ValueType } from "../types/util";
+import TodoForm from "./TodoForm";
 
-interface UpdateTodoProps extends handleTodoDataType {
-  updateTodo: (todo: TodoDataType, index: number) => void;
+interface UpdateTodoProps {
+  id: string;
+  title: string;
+  content: string;
+  updateTodo: () => void;
 }
 
-const UpdateTodo = ({ id, index, updateTodo }: UpdateTodoProps) => {
+const UpdateTodo = ({ id, title, content, updateTodo }: UpdateTodoProps) => {
+  const UpdateAPI = (value: ValueType) => API.updateTodo(value as TodoType, id);
+  const handleUpdate = () => updateTodo();
+
+  const onSubmit = () => {
+    return {
+      API: UpdateAPI,
+      onSuccess: handleUpdate,
+    };
+  };
+
+  const { values, handleChange, handleSubmit } = useForm({
+    initialValue: { title, content },
+    onSubmit,
+  });
+
   return (
-    <div className="w-5 h-5 p-1 box-content cursor-pointer">
-      <PenSquare />
-    </div>
+    <TodoForm
+      {...{ value: values as TodoType }}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 
