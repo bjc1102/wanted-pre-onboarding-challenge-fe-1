@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../lib/instance";
 import { TodoDataType, TodoType } from "../types/todo";
 import { todoSlice } from "../utils/todoSlice";
@@ -20,13 +21,14 @@ const TodoList = () => {
 
   const createTodo = (value: TodoDataType) =>
     setTodos((prev) => [...prev, value]);
+
   const updateTodo = (todo: TodoType, index: number) =>
     setTodos((todos) => {
       const { prev, next } = todoSlice(todos, index);
       const updatedTodo = Object.assign(todos[index], todo);
-
       return [...prev, updatedTodo, ...next];
     });
+
   const deleteTodo = (index: number) =>
     setTodos((todos) => {
       const { prev, next } = todoSlice(todos, index);
@@ -48,10 +50,9 @@ const TodoList = () => {
   };
 
   React.useEffect(() => {
-    (async () => {
-      const result = await API.getTodo();
-      setTodos(result.data.data);
-    })();
+    API.getTodo().then((response) => {
+      setTodos(response.data.data);
+    });
   }, []);
 
   return (
