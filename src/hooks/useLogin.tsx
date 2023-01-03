@@ -6,7 +6,7 @@ const useLogin = () => {
   const navigate = useNavigate();
   const LoginLogic = (response: AxiosResponse<any, any>) => {
     localStorage.setItem("token", response.data.token);
-    navigate("/");
+    navigate("/", { replace: true });
   };
   return LoginLogic;
 };

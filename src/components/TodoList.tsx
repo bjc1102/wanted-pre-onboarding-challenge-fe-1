@@ -50,7 +50,7 @@ const TodoList = () => {
   };
 
   React.useEffect(() => {
-    API.getTodo().then((response) => {
+    API.getTodos().then((response) => {
       setTodos(response.data.data);
     });
   }, []);
