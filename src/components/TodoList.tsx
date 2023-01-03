@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useTodos from "../hooks/useTodos";
 import API from "../lib/instance";
 import { TodoDataType, TodoType } from "../types/todo";
 import { todoSlice } from "../utils/todoSlice";
@@ -15,45 +16,22 @@ export const initialTodo = {
 
 const TodoList = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [todos, setTodos] = React.useState<TodoDataType[]>([]);
-
   const setOpen = () => setIsOpen(!isOpen);
 
-  const createTodo = (value: TodoDataType) =>
-    setTodos((prev) => [...prev, value]);
-
-  const updateTodo = (todo: TodoType, index: number) =>
-    setTodos((todos) => {
-      const { prev, next } = todoSlice(todos, index);
-      const updatedTodo = Object.assign(todos[index], todo);
-      return [...prev, updatedTodo, ...next];
-    });
-
-  const deleteTodo = (index: number) =>
-    setTodos((todos) => {
-      const { prev, next } = todoSlice(todos, index);
-      return [...prev, ...next];
-    });
+  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
 
   const todoSpreader = () => {
     if (todos.length === 0)
       return <p className="text-center">TODO를 등록해주세요!</p>;
     return todos.map((v, index) => (
       <Todo
-        updateTodo={updateTodo}
-        deleteTodo={deleteTodo}
         key={v.id}
-        index={index}
-        {...v}
+        todo={v}
+        updateTodo={updateTodo(index)}
+        deleteTodo={deleteTodo(index)}
       />
     ));
   };
-
-  React.useEffect(() => {
-    API.getTodos().then((response) => {
-      setTodos(response.data.data);
-    });
-  }, []);
 
   return (
     <div className="w-full mt-5">

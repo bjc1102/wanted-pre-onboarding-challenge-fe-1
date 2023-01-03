@@ -6,21 +6,16 @@ import { useSearchParams } from "react-router-dom";
 import DeleteTodo from "./DeleteTodo";
 import UpdateTodo from "./UpdateTodo";
 import PenSquare from "../assets/PenSquare";
+import API from "../lib/instance";
 
-interface TodoProps extends TodoDataType {
-  index: number;
-  updateTodo: (todo: TodoType, index: number) => void;
-  deleteTodo: (index: number) => void;
+interface TodoProps {
+  todo: TodoDataType;
+  updateTodo: (todo: TodoType) => void;
+  deleteTodo: () => void;
 }
 
-const Todo = ({
-  id,
-  title,
-  content,
-  index,
-  updateTodo,
-  deleteTodo,
-}: TodoProps) => {
+const Todo = ({ todo, updateTodo, deleteTodo }: TodoProps) => {
+  const { id, title, content } = todo;
   const [searchParam, setSearchParam] = useSearchParams();
   const [isReadMode, setIsReadMode] = React.useState(true);
   const isOpen = () => searchParam.get("id") === id;
@@ -28,9 +23,9 @@ const Todo = ({
     if (isOpen()) setSearchParam("");
     else setSearchParam({ id: id });
   };
-  const handleDeleteTodo = (index: number) => {
+  const handleDeleteTodo = () => {
     setSearchParam("", { replace: true });
-    deleteTodo(index);
+    deleteTodo();
   };
   const handleReadMode = () => setIsReadMode(!isReadMode);
   const handleUpdateTodo = ({
@@ -39,7 +34,7 @@ const Todo = ({
   }: TodoType) => {
     setIsReadMode(true);
     handleOpenTodo();
-    updateTodo({ title: updatedTitle, content: updatedContent }, index);
+    updateTodo({ title: updatedTitle, content: updatedContent });
   };
 
   return isReadMode ? (
@@ -53,7 +48,7 @@ const Todo = ({
           >
             <PenSquare />
           </div>
-          <DeleteTodo deleteTodo={handleDeleteTodo} id={id} index={index} />
+          <DeleteTodo deleteTodo={handleDeleteTodo} id={id} />
         </div>
       </div>
       <AnimatePresence mode="wait">

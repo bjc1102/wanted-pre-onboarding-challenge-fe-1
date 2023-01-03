@@ -4,16 +4,15 @@ import API from "../lib/instance";
 
 interface DeleteTodoProps {
   id: string;
-  index: number;
-  title?: string;
-  content?: string;
-  deleteTodo: (index: number) => void;
+  deleteTodo: () => void;
 }
 
-const DeleteTodo = ({ id, index, deleteTodo }: DeleteTodoProps) => {
+const DeleteTodo = ({ id, deleteTodo }: DeleteTodoProps) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    API.deleteTodo(id).then(() => deleteTodo(index));
+    API.deleteTodo(id).then(() => {
+      deleteTodo();
+    });
   };
 
   return (
