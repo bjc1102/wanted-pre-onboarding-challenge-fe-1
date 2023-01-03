@@ -11,9 +11,18 @@ interface UpdateTodoProps {
   title: string;
   content: string;
   updateTodo: (todo: TodoType) => void;
+  handleClose: (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+  ) => void;
 }
 
-const UpdateTodo = ({ id, title, content, updateTodo }: UpdateTodoProps) => {
+const UpdateTodo = ({
+  id,
+  title,
+  content,
+  updateTodo,
+  handleClose,
+}: UpdateTodoProps) => {
   const UpdateAPI = (value: ValueType) => API.updateTodo(value as TodoType, id);
   const handleUpdate = (response: AxiosResponse<any, any>) => {
     const { title: updatedTitle, content: updatedContent } = response.data.data;
@@ -36,6 +45,7 @@ const UpdateTodo = ({ id, title, content, updateTodo }: UpdateTodoProps) => {
       {...{ value: values as TodoType }}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleClose={handleClose}
     />
   );
 };

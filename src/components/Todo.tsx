@@ -17,57 +17,73 @@ interface TodoProps {
 const Todo = ({ todo, updateTodo, deleteTodo }: TodoProps) => {
   const { id, title, content } = todo;
   const [searchParam, setSearchParam] = useSearchParams();
-  const [isReadMode, setIsReadMode] = React.useState(true);
-  const isOpen = () => searchParam.get("id") === id;
   const handleOpenTodo = () => {
-    if (isOpen()) setSearchParam("");
-    else setSearchParam({ id: id });
+    if (searchParam.get("id") === id) return setSearchParam("");
+    setSearchParam({ id: id, mode: "read" });
   };
+  const handleWriteMode = (
+    e?: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+  ) => {
+    e?.stopPropagation();
+    if (searchParam.get("mode") === "write")
+      return setSearchParam({ id: id, mode: "read" });
+    setSearchParam({ id: id, mode: "write" });
+  };
+
   const handleDeleteTodo = () => {
     setSearchParam("", { replace: true });
     deleteTodo();
   };
-  const handleReadMode = () => setIsReadMode(!isReadMode);
   const handleUpdateTodo = ({
     title: updatedTitle,
     content: updatedContent,
   }: TodoType) => {
-    setIsReadMode(true);
-    handleOpenTodo();
+    handleWriteMode();
     updateTodo({ title: updatedTitle, content: updatedContent });
   };
 
-  return isReadMode ? (
-    <li onClick={handleOpenTodo} className="py-4 px-5">
-      <div className="relative px-0 py-2 flex justify-between items-center w-full text-base text-gray-800 text-left bg-white border-0 rounded-none focus:outline-none">
-        {title}
-        <div className="flex justify-center items-center gap-2">
-          <div
-            onClick={handleReadMode}
-            className="w-5 h-5 p-1 box-content cursor-pointer"
-          >
-            <PenSquare />
+  const TodoCard = () => {
+    if (searchParam.get("id") === id && searchParam.get("mode") === "write") {
+      return (
+        <UpdateTodo
+          {...{ id, title, content }}
+          updateTodo={handleUpdateTodo}
+          handleClose={handleWriteMode}
+        />
+      );
+    }
+    return (
+      <li onClick={handleOpenTodo} className="py-4 px-5">
+        <div className="relative px-0 py-2 flex justify-between items-center w-full text-base text-gray-800 text-left bg-white border-0 rounded-none focus:outline-none">
+          {title}
+          <div className="flex justify-center items-center gap-2">
+            <div
+              onClick={handleWriteMode}
+              className="w-5 h-5 p-1 box-content cursor-pointer"
+            >
+              <PenSquare />
+            </div>
+            <DeleteTodo deleteTodo={handleDeleteTodo} id={id} />
           </div>
-          <DeleteTodo deleteTodo={handleDeleteTodo} id={id} />
         </div>
-      </div>
-      <AnimatePresence mode="wait">
-        {isOpen() && (
-          <motion.div
-            variants={TodoVars}
-            initial="start"
-            animate="animation"
-            exit="end"
-            key="num"
-          >
-            {content}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </li>
-  ) : (
-    <UpdateTodo {...{ id, title, content }} updateTodo={handleUpdateTodo} />
-  );
+        <AnimatePresence mode="wait">
+          {searchParam.get("id") === id && (
+            <motion.div
+              variants={TodoVars}
+              initial="start"
+              animate="animation"
+              exit="end"
+              key="num"
+            >
+              {content}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </li>
+    );
+  };
+
+  return TodoCard();
 };
 
 export default React.memo(Todo);

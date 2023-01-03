@@ -20,6 +20,7 @@ const WriteTodo = ({ setOpen, createTodo }: WriteTodoProps) => {
     createTodo(response.data.data);
     setOpen();
   };
+
   const createTodoAPI = (value: ValueType) => API.createTodo(value as TodoType);
   const onSubmit = () => {
     return {
@@ -41,7 +42,11 @@ const WriteTodo = ({ setOpen, createTodo }: WriteTodoProps) => {
       animate="animation"
       exit="end"
     >
-      <TodoForm handleChange={handleChange} handleSubmit={handleSubmit} />
+      <TodoForm
+        handleClose={setOpen}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
     </motion.li>
   );
 };
