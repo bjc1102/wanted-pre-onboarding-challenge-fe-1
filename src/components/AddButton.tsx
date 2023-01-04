@@ -4,7 +4,7 @@ interface AddBtnProps {
   setOpen: () => void;
 }
 
-const AddBtn = ({ setOpen }: AddBtnProps) => {
+const AddButton = ({ setOpen }: AddBtnProps) => {
   return (
     <button
       type="button"
@@ -16,4 +16,4 @@ const AddBtn = ({ setOpen }: AddBtnProps) => {
   );
 };
 
-export default AddBtn;
+export default AddButton;

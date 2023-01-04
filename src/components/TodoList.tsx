@@ -1,11 +1,8 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useTodos from "../hooks/useTodos";
-import API from "../lib/instance";
-import { TodoDataType, TodoType } from "../types/todo";
-import { todoSlice } from "../utils/todoSlice";
-import AddBtn from "./AddBtn";
+import AddButton from "./AddButton";
+import LogoutButton from "./LogoutButton";
 import Todo from "./Todo";
 import WriteTodo from "./WriteTodo";
 
@@ -36,8 +33,11 @@ const TodoList = () => {
   return (
     <div className="w-full mt-5">
       <div className="max-w-4xl mx-auto flex justify-between items-center">
-        <h2 className="">MY TODO</h2>
-        <AddBtn setOpen={setOpen} />
+        <div className="flex items-center gap-2">
+          <h2 className="">MY TODO</h2>
+          <LogoutButton />
+        </div>
+        <AddButton setOpen={setOpen} />
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
         <AnimatePresence>
