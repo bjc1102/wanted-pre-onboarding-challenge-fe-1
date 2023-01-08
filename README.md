@@ -48,4 +48,4 @@
 - custom hook을 통해 중복된 change 함수, state들을 관리할 수 있었고 더 유사한 기능들끼리 묶을 수 있었습니다.
 - 기능 명세서를 잘 읽으면서 구현해야할 필요가 있다고 느꼈습니다. 막상 구현을 하고보니 구현되었어야할 부분이 제대로 구현되지 않았다는 느낌을 받아 조금 더 세세하게 읽어야겠다고 생각하였습니다.
 
-[UI부터 우선 구현하다가 로직을 장황하게 사용한 결과를 찾아보다가 험블 객체 패턴을 알게 되었습니다](https://blog.coderifleman.com/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/)
+[UI부터 우선 구현하다가 로직을 하게 사용한 결과를 찾아보다가 험블 객체 패턴을 알게 되었습니다](https://blog.coderifleman.com/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/)
