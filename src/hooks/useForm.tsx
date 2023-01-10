@@ -2,14 +2,14 @@ import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
 import { ErrorProps, SignType } from "../types/form";
 import { TodoType } from "../types/todo";
+import { ValueType } from "../types/util";
 
-type FormInitialValueType = SignType | TodoType;
 interface SubmitType {
-  API: (value: FormInitialValueType) => Promise<AxiosResponse<any, any>>;
+  API: (value: ValueType) => Promise<AxiosResponse<any, any>>;
   onSuccess: (value: any) => void;
 }
 interface FormProps {
-  initialValue: FormInitialValueType;
+  initialValue: ValueType;
   validate?: (initialValue: SignType) => ErrorProps;
   onSubmit: () => SubmitType;
 }
@@ -37,8 +37,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   };
 
   useEffect(() => {
-    if (validate && "email" in initialValue)
-      setError(validate(values as SignType));
+    if (validate) setError(validate(values as SignType));
   }, [values]);
 
   return {
