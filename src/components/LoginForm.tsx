@@ -3,13 +3,13 @@ import { initialValue } from "../pages/Auth";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { SignType } from "../types/form";
-import API from "../lib/instance";
+import { AuthAPI } from "../lib/instance";
 import { ValueType } from "../types/util";
 import useLogin from "../hooks/useLogin";
 import signValidation, { isFormValidate } from "../utils/validate";
 
 const LoginForm = () => {
-  const LoginAPI = (value: ValueType) => API.signin(value as SignType);
+  const LoginAPI = (value: ValueType) => AuthAPI.signin(value as SignType);
   const LoginLogic = useLogin();
 
   const onSubmit = () => {

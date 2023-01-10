@@ -1,7 +1,9 @@
 import React from "react";
-import API from "../lib/instance";
+import { TodoAPI } from "../lib/instance";
 import { TodoDataType, TodoType } from "../types/todo";
 import { todoSlice } from "../utils/todoSlice";
+
+const TodoListKey = ["TodoList"];
 
 const useTodos = () => {
   const [todos, setTodos] = React.useState<TodoDataType[]>([]);
@@ -23,7 +25,7 @@ const useTodos = () => {
     });
 
   React.useEffect(() => {
-    API.getTodos().then((response) => {
+    TodoAPI.getTodos().then((response) => {
       setTodos(response.data.data);
     });
   }, []);

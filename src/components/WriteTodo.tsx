@@ -4,7 +4,7 @@ import { TodoVars } from "../utils/animation";
 
 import useForm from "../hooks/useForm";
 import { initialTodo } from "./TodoList";
-import API from "../lib/instance";
+import { TodoAPI } from "../lib/instance";
 import { TodoDataType, TodoType } from "../types/todo";
 import { ValueType } from "../types/util";
 import { AxiosResponse } from "axios";
@@ -21,7 +21,8 @@ const WriteTodo = ({ setOpen, createTodo }: WriteTodoProps) => {
     setOpen();
   };
 
-  const createTodoAPI = (value: ValueType) => API.createTodo(value as TodoType);
+  const createTodoAPI = (value: ValueType) =>
+    TodoAPI.createTodo(value as TodoType);
   const onSubmit = () => {
     return {
       API: createTodoAPI,

@@ -2,13 +2,16 @@ import { SignType } from "../types/form";
 import { TodoType } from "../types/todo";
 import instance from "./axios";
 
-const API = {
+const AuthAPI = {
   signup: async (value: SignType) => {
     return await instance.post("/users/create", value);
   },
   signin: async (value: SignType) => {
     return await instance.post("/users/login", value);
   },
+};
+
+const TodoAPI = {
   createTodo: async (value: TodoType) => {
     return await instance.post("/todos", value);
   },
@@ -26,4 +29,4 @@ const API = {
   },
 };
 
-export default API;
+export { AuthAPI, TodoAPI };

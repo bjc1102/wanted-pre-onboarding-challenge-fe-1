@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 import DeleteTodo from "./DeleteTodo";
 import UpdateTodo from "./UpdateTodo";
 import PenSquare from "../assets/PenSquare";
-import API from "../lib/instance";
 
 interface TodoProps {
   todo: TodoDataType;

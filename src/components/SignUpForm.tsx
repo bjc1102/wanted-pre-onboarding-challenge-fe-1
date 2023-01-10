@@ -1,6 +1,6 @@
 import React from "react";
 import useForm from "../hooks/useForm";
-import API from "../lib/instance";
+import { AuthAPI } from "../lib/instance";
 import { initialValue } from "../pages/Auth";
 import { SignType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
@@ -8,7 +8,7 @@ import { ValueType } from "../types/util";
 import useLogin from "../hooks/useLogin";
 
 const SignUpForm = () => {
-  const LoginAPI = (value: ValueType) => API.signup(value as SignType);
+  const LoginAPI = (value: ValueType) => AuthAPI.signup(value as SignType);
   const LoginLogic = useLogin();
 
   const onSubmit = () => {

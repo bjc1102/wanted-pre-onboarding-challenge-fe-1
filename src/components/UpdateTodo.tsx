@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import React from "react";
 import useForm from "../hooks/useForm";
-import API from "../lib/instance";
+import { TodoAPI } from "../lib/instance";
 import { TodoType } from "../types/todo";
 import { ValueType } from "../types/util";
 import TodoForm from "./TodoForm";
@@ -23,7 +23,8 @@ const UpdateTodo = ({
   updateTodo,
   handleClose,
 }: UpdateTodoProps) => {
-  const UpdateAPI = (value: ValueType) => API.updateTodo(value as TodoType, id);
+  const UpdateAPI = (value: ValueType) =>
+    TodoAPI.updateTodo(value as TodoType, id);
   const handleUpdate = (response: AxiosResponse<any, any>) => {
     const { title: updatedTitle, content: updatedContent } = response.data.data;
     updateTodo({ title: updatedTitle, content: updatedContent });

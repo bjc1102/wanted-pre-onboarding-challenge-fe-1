@@ -1,6 +1,6 @@
 import React from "react";
 import Xmark from "../assets/Xmark";
-import API from "../lib/instance";
+import { TodoAPI } from "../lib/instance";
 
 interface DeleteTodoProps {
   id: string;
@@ -10,7 +10,7 @@ interface DeleteTodoProps {
 const DeleteTodo = ({ id, deleteTodo }: DeleteTodoProps) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    API.deleteTodo(id).then(() => {
+    TodoAPI.deleteTodo(id).then(() => {
       deleteTodo();
     });
   };
