@@ -6,11 +6,6 @@ import LogoutButton from "./LogoutButton";
 import Todo from "./Todo";
 import WriteTodo from "./WriteTodo";
 
-export const initialTodo = {
-  title: "",
-  content: "",
-};
-
 const TodoList = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const setOpen = () => setIsOpen(!isOpen);

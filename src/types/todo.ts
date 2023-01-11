@@ -1,5 +1,5 @@
 import { createObjType } from "./util";
-import { initialTodo } from "../components/TodoList";
+import { TodoInitialValue as initialTodo } from "../static/const";
 
 export type TodoType = createObjType<typeof initialTodo>;
 

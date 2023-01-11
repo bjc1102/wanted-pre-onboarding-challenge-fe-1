@@ -1,4 +1,4 @@
-import { initialValue } from "../pages/Auth";
+import { SignInitialValue as initialValue } from "../static/const";
 import { createObjType } from "./util";
 
 export type SignType = createObjType<typeof initialValue>;
