@@ -1,8 +1,8 @@
 import React from "react";
-import handleToken from "../utils/handleToken";
+import { checkToken } from "../utils/handleToken";
 
 const LogoutButton = () => {
-  const handleClick = () => handleToken("로그아웃 되었습니다.");
+  const handleClick = () => checkToken("로그아웃 되었습니다.");
 
   return (
     <button

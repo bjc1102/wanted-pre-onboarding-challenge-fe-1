@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { SignType } from "./form";
 import { TodoType } from "./todo";
 
@@ -7,7 +6,3 @@ export type createObjType<T> = {
 };
 
 export type ValueType = SignType | TodoType;
-
-export function isSignType(value: ValueType): ValueType is SignType {
-  return Pick<SignType, "email"> in value;
-}

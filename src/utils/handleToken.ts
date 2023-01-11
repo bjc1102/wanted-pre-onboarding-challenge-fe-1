@@ -1,6 +1,7 @@
 import history from "../lib/history";
+import { AuthResponse } from "../types/Auth";
 
-const handleToken = (msg = "로그인이 필요한 서비스입니다") => {
+const checkToken = (msg = "로그인이 필요한 서비스입니다") => {
   if (history.location.pathname !== "/auth") {
     localStorage.removeItem("token");
     history.replace("/auth");
@@ -8,4 +9,9 @@ const handleToken = (msg = "로그인이 필요한 서비스입니다") => {
   }
 };
 
-export default handleToken;
+const storageToken = (response: AuthResponse) => {
+  localStorage.setItem("token", response.token);
+  history.replace("/");
+};
+
+export { checkToken, storageToken };

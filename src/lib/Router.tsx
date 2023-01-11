@@ -1,17 +1,18 @@
 import React from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import SignUp from "../pages/SignUp";
 
 import Auth from "../pages/Auth";
 import Home from "../pages/Home";
-import handleToken from "../utils/handleToken";
+import history from "./history";
 
 const Router = () => {
   const location = useLocation();
 
   React.useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token === null && location.pathname !== "/auth") handleToken();
+    if (token === null && location.pathname !== "/auth")
+      history.replace("/auth");
   }, [localStorage.getItem("token")]);
 
   return (
