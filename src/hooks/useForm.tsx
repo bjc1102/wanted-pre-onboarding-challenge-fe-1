@@ -1,20 +1,17 @@
-import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
-import { ErrorProps, SignType } from "../types/form";
-import { TodoType } from "../types/todo";
-import { ValueType } from "../types/util";
+import { ErrorProps } from "../types/form";
 
-interface SubmitType {
-  API: (value: ValueType) => Promise<AxiosResponse<any, any>>;
-  onSuccess: (value: any) => void;
+interface SubmitType<Type> {
+  API: (value: Type) => Promise<unknown>;
+  onSuccess: (value: unknown) => void;
 }
-interface FormProps {
-  initialValue: ValueType;
-  validate?: (initialValue: SignType) => ErrorProps;
-  onSubmit: () => SubmitType;
+interface FormProps<Type> {
+  initialValue: Type;
+  validate?: (initialValue: Type) => ErrorProps;
+  onSubmit: () => SubmitType<Type>;
 }
 
-const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
+function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
   const [values, setValues] = React.useState(initialValue);
   const [error, setError] = React.useState<ErrorProps>({});
 
@@ -37,7 +34,7 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
   };
 
   useEffect(() => {
-    if (validate) setError(validate(values as SignType));
+    if (validate) setError(validate(values));
   }, [values]);
 
   return {
@@ -46,6 +43,6 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
     handleSubmit,
     error,
   };
-};
+}
 
 export default useForm;

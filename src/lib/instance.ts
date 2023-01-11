@@ -1,13 +1,19 @@
+import { AxiosResponse } from "axios";
+import { AuthResponse } from "../types/Auth";
 import { SignType } from "../types/form";
 import { TodoType } from "../types/todo";
 import instance from "./axios";
 
+type Response<T> = Promise<T>;
+
 const AuthAPI = {
-  signup: async (value: SignType) => {
-    return await instance.post("/users/create", value);
+  signup: async (value: SignType): Response<AuthResponse> => {
+    const result = await instance.post<AuthResponse>("/users/create", value);
+    return result.data;
   },
-  signin: async (value: SignType) => {
-    return await instance.post("/users/login", value);
+  signin: async (value: SignType): Response<AuthResponse> => {
+    const result = await instance.post<AuthResponse>("/users/login", value);
+    return result.data;
   },
 };
 

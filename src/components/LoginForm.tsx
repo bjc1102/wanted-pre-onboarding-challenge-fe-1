@@ -1,26 +1,28 @@
 import React from "react";
-import { initialValue } from "../pages/Auth";
+import { SignInitialValue } from "../static/const";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { SignType } from "../types/form";
 import { AuthAPI } from "../lib/instance";
-import { ValueType } from "../types/util";
-import useLogin from "../hooks/useLogin";
+import { storageToken } from "../utils/handleToken";
 import signValidation, { isFormValidate } from "../utils/validate";
+import { isAuthResponseType } from "../types/Auth";
 
 const LoginForm = () => {
-  const LoginAPI = (value: ValueType) => AuthAPI.signin(value as SignType);
-  const LoginLogic = useLogin();
+  const LoginAPI = (value: SignType) => AuthAPI.signin(value);
+  const onSuccess = (response: unknown) => {
+    if (isAuthResponseType(response)) storageToken(response);
+  };
 
   const onSubmit = () => {
     return {
       API: LoginAPI,
-      onSuccess: LoginLogic,
+      onSuccess,
     };
   };
 
   const { handleChange, handleSubmit, error } = useForm({
-    initialValue,
+    initialValue: SignInitialValue,
     validate: signValidation,
     onSubmit,
   });

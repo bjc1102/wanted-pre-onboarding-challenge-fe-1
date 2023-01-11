@@ -1,25 +1,27 @@
 import React from "react";
 import useForm from "../hooks/useForm";
 import { AuthAPI } from "../lib/instance";
-import { initialValue } from "../pages/Auth";
+import { SignInitialValue } from "../static/const";
 import { SignType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
-import { ValueType } from "../types/util";
-import useLogin from "../hooks/useLogin";
+import { storageToken } from "../utils/handleToken";
+import { isAuthResponseType } from "../types/Auth";
 
 const SignUpForm = () => {
-  const LoginAPI = (value: ValueType) => AuthAPI.signup(value as SignType);
-  const LoginLogic = useLogin();
+  const SignUpAPI = (value: SignType) => AuthAPI.signup(value);
+  const onSuccess = (response: unknown) => {
+    if (isAuthResponseType(response)) storageToken(response);
+  };
 
   const onSubmit = () => {
     return {
-      API: LoginAPI,
-      onSuccess: LoginLogic,
+      API: SignUpAPI,
+      onSuccess,
     };
   };
 
-  const { handleChange, handleSubmit, error } = useForm({
-    initialValue,
+  const { handleChange, handleSubmit, error } = useForm<SignType>({
+    initialValue: SignInitialValue,
     validate: signValidation,
     onSubmit,
   });
