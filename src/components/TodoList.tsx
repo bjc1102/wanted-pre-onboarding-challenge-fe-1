@@ -1,28 +1,21 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import useTodos from "../hooks/useTodos";
+import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
 import AddButton from "./AddButton";
 import LogoutButton from "./LogoutButton";
 import Todo from "./Todo";
-import WriteTodo from "./WriteTodo";
+import CreateTodo from "./CreateTodo";
 
 const TodoList = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const setOpen = () => setIsOpen(!isOpen);
+  const [isWriteFormOpen, setIsWriteFormOpen] = React.useState(false);
+  const setOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
 
-  const { todos, createTodo, updateTodo, deleteTodo } = useTodos();
+  const { todoList } = useGetTodoList();
 
   const todoSpreader = () => {
-    if (todos.length === 0)
+    if (todoList?.length === 0)
       return <p className="text-center">TODO를 등록해주세요!</p>;
-    return todos.map((v, index) => (
-      <Todo
-        key={v.id}
-        todo={v}
-        updateTodo={updateTodo(index)}
-        deleteTodo={deleteTodo(index)}
-      />
-    ));
+    return todoList?.map((v) => <Todo key={v.id} todo={v} />);
   };
 
   return (
@@ -36,7 +29,7 @@ const TodoList = () => {
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
         <AnimatePresence>
-          {isOpen && <WriteTodo setOpen={setOpen} createTodo={createTodo} />}
+          {isWriteFormOpen && <CreateTodo setOpen={setOpen} />}
         </AnimatePresence>
         {todoSpreader()}
       </ul>
