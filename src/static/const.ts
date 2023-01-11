@@ -7,3 +7,5 @@ export const TodoInitialValue = {
   title: "",
   content: "",
 };
+
+export const TodoListKey = ["TodoList"];

@@ -1,10 +1,26 @@
 import { createObjType } from "./util";
 import { TodoInitialValue as initialTodo } from "../static/const";
 
-export type TodoType = createObjType<typeof initialTodo>;
-
-export interface TodoDataType extends TodoType {
+export interface TodoDataResponse {
   id: string;
-  createdAt?: string;
-  updatedAt?: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TodoFormType = Omit<
+  TodoDataResponse,
+  "createdAt" | "updatedAt" | "id"
+>;
+
+export function isTodoDataResponseType(
+  data: unknown
+): data is TodoDataResponse {
+  const TodoDataResponse =
+    typeof data === "object" &&
+    "id" in (data as any) &&
+    typeof (data as any)["id"] === "string";
+  if (TodoDataResponse === false) throw new Error("data is not AuthResponse");
+  return TodoDataResponse;
 }
