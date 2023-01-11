@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { ErrorProps } from "../types/form";
 
-interface SubmitType<Type> {
-  API: (value: Type) => Promise<unknown>;
-  onSuccess: (value: unknown) => void;
-}
 interface FormProps<Type> {
   initialValue: Type;
   validate?: (initialValue: Type) => ErrorProps;
-  onSubmit: () => SubmitType<Type>;
+  onSubmit: (value: Type) => void;
 }
 
 function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
@@ -24,13 +20,7 @@ function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { API, onSuccess } = onSubmit();
-
-    API(values)
-      .then((response) => {
-        onSuccess(response);
-      })
-      .catch((error) => setError({ error: "에러가 발생했습니다." }));
+    onSubmit(values);
   };
 
   useEffect(() => {
