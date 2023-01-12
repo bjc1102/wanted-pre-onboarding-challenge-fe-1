@@ -6,5 +6,8 @@ export type SignType = createObjType<typeof initialValue>;
 export type ErrorProps = {
   email?: typeof initialValue.email;
   password?: typeof initialValue.password;
-  error?: string;
+};
+
+export type ChangeTypeOfKeys<T> = {
+  [key in keyof T]?: T[key];
 };

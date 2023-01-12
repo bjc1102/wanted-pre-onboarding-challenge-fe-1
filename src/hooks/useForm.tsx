@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { ErrorProps } from "../types/form";
+import { ChangeTypeOfKeys, ErrorProps } from "../types/form";
 
 interface FormProps<Type> {
   initialValue: Type;
-  validate?: (initialValue: Type) => ErrorProps;
+  validate?: (initialValue: Type) => ChangeTypeOfKeys<Type>;
   onSubmit: (value: Type) => void;
 }
 
 function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
   const [values, setValues] = React.useState(initialValue);
-  const [error, setError] = React.useState<ErrorProps>({});
+  const [error, setError] = React.useState<
+    ChangeTypeOfKeys<typeof initialValue>
+  >({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
