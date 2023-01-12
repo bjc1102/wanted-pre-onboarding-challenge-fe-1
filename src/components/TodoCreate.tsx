@@ -8,13 +8,14 @@ import TodoForm from "./TodoForm";
 import useCreateTodo from "../hooks/queries/Todo/useCreateTodo";
 
 import { TodoFormType } from "../types/todo";
+import Button from "./common/Button";
 
 interface CreateTodoProps {
-  setTodoOpen: () => void;
+  setWriteFormOpen: () => void;
 }
 
-const TodoCreate = ({ setTodoOpen }: CreateTodoProps) => {
-  const createTodo = useCreateTodo();
+const TodoCreate = ({ setWriteFormOpen }: CreateTodoProps) => {
+  const createTodo = useCreateTodo(setWriteFormOpen);
   const createNewTodo = (value: TodoFormType) => createTodo(value);
 
   const { handleChange, handleSubmit } = useForm<TodoFormType>({
@@ -24,7 +25,14 @@ const TodoCreate = ({ setTodoOpen }: CreateTodoProps) => {
 
   return (
     <motion.li className="px-3" {...openAnimation}>
-      <TodoForm handleChange={handleChange} handleSubmit={handleSubmit} />
+      <TodoForm handleChange={handleChange} handleSubmit={handleSubmit}>
+        <Button style_type="primary" type="submit">
+          저장하기
+        </Button>
+        <Button onClick={setWriteFormOpen} style_type="secondary" type="button">
+          취소하기
+        </Button>
+      </TodoForm>
     </motion.li>
   );
 };
