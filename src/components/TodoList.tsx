@@ -23,7 +23,7 @@ const TodoList = () => {
         <div className="flex items-center gap-2">
           <h2 className="">MY TODO</h2>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <Button style_type="primary" onClick={setOpen}>
             Todo 등록
           </Button>

@@ -9,7 +9,6 @@ const useCreateTodo = () => {
 
   const { mutate: createTodo } = useMutation(TodoAPI.createTodo, {
     onSuccess(todo) {
-      console.log(todo);
       queryClient.setQueryData<TodoDataResponse[]>(TodoListKey, (oldData) => {
         if (!oldData) return [];
         return [...oldData, todo];

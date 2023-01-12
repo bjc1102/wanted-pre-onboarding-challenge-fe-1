@@ -1,5 +1,5 @@
 import axios, { AxiosRequestHeaders } from "axios";
-import { checkToken } from "../utils/handleToken";
+import { removeToken } from "../utils/handleToken";
 
 const baseURL = "http://localhost:8080";
 
@@ -40,7 +40,7 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    checkToken();
+    removeToken();
     return Promise.resolve();
   }
 );

@@ -1,4 +1,5 @@
-import { ChangeTypeOfKeys, SignFormType } from "../types/form";
+import { SignFormType } from "../types/form";
+import { ChangeTypeOfKeys } from "../types/util";
 
 export default function signValidation({ email, password }: SignFormType) {
   const errors: ChangeTypeOfKeys<SignFormType> = {};

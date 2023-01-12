@@ -1,7 +1,7 @@
 import history from "../lib/history";
 import { AuthResponse } from "../types/auth";
 
-const checkToken = (msg = "로그인이 필요한 서비스입니다") => {
+const removeToken = (msg = "로그인이 필요한 서비스입니다") => {
   if (history.location.pathname !== "/auth") {
     localStorage.removeItem("token");
     history.replace("/auth");
@@ -14,4 +14,4 @@ const storageToken = (response: AuthResponse) => {
   history.replace("/");
 };
 
-export { checkToken, storageToken };
+export { removeToken, storageToken };
