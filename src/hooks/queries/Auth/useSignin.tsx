@@ -4,12 +4,12 @@ import { AuthAPI } from "../../../lib/instance";
 import { storageToken } from "../../../utils/handleToken";
 
 const useSignin = () => {
-  const { mutate: doSignin } = useMutation(AuthAPI.signin, {
+  const { mutate: SignInMutate } = useMutation(AuthAPI.signin, {
     onSuccess(data) {
       storageToken(data);
     },
   });
-  return doSignin;
+  return SignInMutate;
 };
 
 export default useSignin;

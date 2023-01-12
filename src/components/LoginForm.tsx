@@ -10,8 +10,8 @@ import SignForm from "./common/SignForm";
 import Button from "./common/Button";
 
 const LoginForm = () => {
-  const SigninMutate = useSignin();
-  const loginFormSubmit = (value: SignType) => SigninMutate(value);
+  const SignInMutate = useSignin();
+  const loginFormSubmit = (value: SignType) => SignInMutate(value);
 
   const { values, handleChange, handleSubmit, error } = useForm<SignType>({
     initialValue: SignInitialValue,
@@ -26,6 +26,9 @@ const LoginForm = () => {
 
   return (
     <>
+      <h1 className="w-full text-center text-lg bg-slate-200 max-w-xs mb-3">
+        로그인 폼
+      </h1>
       <SignForm onSubmit={handleSubmit}>
         <div className="mb-6">
           <Input
