@@ -7,7 +7,7 @@ import TodoCreate from "./TodoCreate";
 
 const TodoList = () => {
   const [isWriteFormOpen, setIsWriteFormOpen] = React.useState(false);
-  const setOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
+  const setWriteFormOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
 
   const { todoList } = useGetTodoList();
 
@@ -24,7 +24,7 @@ const TodoList = () => {
           <h2 className="">MY TODO</h2>
         </div>
         <div className="flex gap-2">
-          <Button style_type="primary" onClick={setOpen}>
+          <Button style_type="primary" onClick={setWriteFormOpen}>
             Todo 등록
           </Button>
           <Button style_type="secondary">로그아웃</Button>
@@ -32,7 +32,9 @@ const TodoList = () => {
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
         <AnimatePresence>
-          {isWriteFormOpen && <TodoCreate setTodoOpen={setOpen} />}
+          {isWriteFormOpen && (
+            <TodoCreate setWriteFormOpen={setWriteFormOpen} />
+          )}
         </AnimatePresence>
         {todoSpreader()}
       </ul>
