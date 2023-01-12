@@ -4,8 +4,9 @@ import { TodoAPI } from "../../../lib/instance";
 import { TodoListKey } from "../../../static/const";
 import { TodoDataResponse } from "../../../types/todo";
 import { todoSlice } from "../../../utils/todoSlice";
+import { SuccessToast } from "../../../utils/tostify";
 
-const useUpdateTodo = () => {
+const useUpdateTodo = (onSucceeded?: () => void) => {
   const queryClient = useQueryClient();
 
   const { mutate: updateTodo } = useMutation(TodoAPI.updateTodo, {
@@ -16,6 +17,8 @@ const useUpdateTodo = () => {
         const { prev, next } = todoSlice(oldData, index);
         return [...prev, todo, ...next];
       });
+      if (onSucceeded) onSucceeded();
+      SuccessToast("Todo가 수정되었습니다.");
     },
   });
 
