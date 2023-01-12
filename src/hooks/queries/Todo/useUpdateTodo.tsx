@@ -8,7 +8,7 @@ import { todoSlice } from "../../../utils/todoSlice";
 const useUpdateTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: updateTodo } = useMutation(TodoAPI.createTodo, {
+  const { mutate: updateTodo } = useMutation(TodoAPI.updateTodo, {
     onSuccess(todo) {
       queryClient.setQueryData<TodoDataResponse[]>(TodoListKey, (oldData) => {
         if (!oldData) return [];

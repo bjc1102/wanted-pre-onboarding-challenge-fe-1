@@ -1,20 +1,25 @@
-import { AuthResponse } from "../types/Auth";
-import { SignType } from "../types/form";
+import { AuthResponse } from "../types/auth";
+import { SignFormType } from "../types/form";
 import { TodoDataResponse, TodoFormType } from "../types/todo";
 import instance from "./axios";
 
 type Response<T> = Promise<T>;
 
 const AuthAPI = {
-  signup: async (value: SignType): Response<AuthResponse> => {
+  signup: async (value: SignFormType): Response<AuthResponse> => {
     const result = await instance.post<AuthResponse>("/users/create", value);
     return result.data;
   },
-  signin: async (value: SignType): Response<AuthResponse> => {
+  signin: async (value: SignFormType): Response<AuthResponse> => {
     const result = await instance.post<AuthResponse>("/users/login", value);
     return result.data;
   },
 };
+
+interface UpdateTodoType {
+  id: string;
+  value: TodoFormType;
+}
 
 const TodoAPI = {
   createTodo: async (value: TodoFormType): Response<TodoDataResponse> => {
@@ -29,10 +34,10 @@ const TodoAPI = {
     const result = await instance.get(`/todos/${id}`);
     return result.data.data;
   },
-  updateTodo: async (
-    value: TodoFormType,
-    id: string
-  ): Response<TodoDataResponse> => {
+  updateTodo: async ({
+    value,
+    id,
+  }: UpdateTodoType): Response<TodoDataResponse> => {
     const result = await instance.put(`/todos/${id}`, value);
     return result.data.data;
   },
