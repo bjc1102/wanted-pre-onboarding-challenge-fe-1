@@ -2,7 +2,7 @@ import React from "react";
 import { SignInitialValue } from "../static/const";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
-import { SignType } from "../types/form";
+import { SignFormType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
 import useSignin from "../hooks/queries/Auth/useSignin";
 import Input from "./common/Input";
@@ -11,15 +11,15 @@ import Button from "./common/Button";
 
 const LoginForm = () => {
   const SignInMutate = useSignin();
-  const loginFormSubmit = (value: SignType) => SignInMutate(value);
+  const loginFormSubmit = (value: SignFormType) => SignInMutate(value);
 
-  const { values, handleChange, handleSubmit, error } = useForm<SignType>({
+  const { values, handleChange, handleSubmit, error } = useForm<SignFormType>({
     initialValue: SignInitialValue,
     validate: signValidation,
     onSubmit: loginFormSubmit,
   });
 
-  function hasInputError(value: keyof SignType) {
+  function hasInputError(value: keyof SignFormType) {
     if (!values[value]) return false;
     if (error[value]) return true;
   }
@@ -58,7 +58,7 @@ const LoginForm = () => {
         </div>
         <div className="flex items-center justify-between">
           <Button
-            disabled={isFormValidate(error)}
+            disabled={isFormValidate<SignFormType>(error)}
             style_type="disabled"
             type="submit"
           >

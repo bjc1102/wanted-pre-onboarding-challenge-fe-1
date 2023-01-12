@@ -1,10 +1,9 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
-import AddButton from "./AddButton";
-import LogoutButton from "./LogoutButton";
+import Button from "./common/Button";
 import Todo from "./Todo";
-import CreateTodo from "./CreateTodo";
+import TodoCreate from "./TodoCreate";
 
 const TodoList = () => {
   const [isWriteFormOpen, setIsWriteFormOpen] = React.useState(false);
@@ -23,13 +22,17 @@ const TodoList = () => {
       <div className="max-w-4xl mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2">
           <h2 className="">MY TODO</h2>
-          <LogoutButton />
         </div>
-        <AddButton setOpen={setOpen} />
+        <div className="flex gap-4">
+          <Button style_type="primary" onClick={setOpen}>
+            Todo 등록
+          </Button>
+          <Button style_type="secondary">로그아웃</Button>
+        </div>
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
         <AnimatePresence>
-          {isWriteFormOpen && <CreateTodo setOpen={setOpen} />}
+          {isWriteFormOpen && <TodoCreate setTodoOpen={setOpen} />}
         </AnimatePresence>
         {todoSpreader()}
       </ul>

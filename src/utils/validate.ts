@@ -1,7 +1,7 @@
-import { ChangeTypeOfKeys, ErrorProps, SignType } from "../types/form";
+import { ChangeTypeOfKeys, SignFormType } from "../types/form";
 
-export default function signValidation({ email, password }: SignType) {
-  const errors: ChangeTypeOfKeys<SignType> = {};
+export default function signValidation({ email, password }: SignFormType) {
+  const errors: ChangeTypeOfKeys<SignFormType> = {};
 
   if (!email) {
     errors.email = "이메일이 입력되지 않았습니다.";
@@ -18,8 +18,8 @@ export default function signValidation({ email, password }: SignType) {
   return errors;
 }
 
-export const isFormValidate = (error: ErrorProps) => {
+export function isFormValidate<T>(error: ChangeTypeOfKeys<T>) {
   //error가 있다면, value값이 입력되지 않았다면
   if (!!Object.keys(error).length) return true;
   return false;
-};
+}

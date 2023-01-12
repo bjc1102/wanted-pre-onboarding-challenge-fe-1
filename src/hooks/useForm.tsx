@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ChangeTypeOfKeys, ErrorProps } from "../types/form";
+import { ChangeTypeOfKeys } from "../types/util";
 
 interface FormProps<Type> {
   initialValue: Type;

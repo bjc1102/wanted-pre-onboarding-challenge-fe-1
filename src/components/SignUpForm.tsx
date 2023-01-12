@@ -1,7 +1,7 @@
 import React from "react";
 import useForm from "../hooks/useForm";
 import { SignInitialValue } from "../static/const";
-import { SignType } from "../types/form";
+import { SignFormType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
 import useSignUp from "../hooks/queries/Auth/useSignUp";
 import Input from "./common/Input";
@@ -10,15 +10,15 @@ import SignForm from "./common/SignForm";
 
 const SignUpForm = () => {
   const SignUpMutate = useSignUp();
-  const SignUpFormSubmit = (value: SignType) => SignUpMutate(value);
+  const SignUpFormSubmit = (value: SignFormType) => SignUpMutate(value);
 
-  const { values, handleChange, handleSubmit, error } = useForm<SignType>({
+  const { values, handleChange, handleSubmit, error } = useForm<SignFormType>({
     initialValue: SignInitialValue,
     validate: signValidation,
     onSubmit: SignUpFormSubmit,
   });
 
-  function hasInputError(value: keyof SignType) {
+  function hasInputError(value: keyof SignFormType) {
     if (!values[value]) return false;
     if (error[value]) return true;
   }
@@ -56,7 +56,7 @@ const SignUpForm = () => {
         <div className="flex items-center justify-between">
           <Button
             style_type="disabled"
-            disabled={isFormValidate(error)}
+            disabled={isFormValidate<SignFormType>(error)}
             type="submit"
           >
             회원가입

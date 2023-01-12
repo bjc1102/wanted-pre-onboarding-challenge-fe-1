@@ -1,5 +1,5 @@
 import history from "../lib/history";
-import { AuthResponse } from "../types/Auth";
+import { AuthResponse } from "../types/auth";
 
 const checkToken = (msg = "로그인이 필요한 서비스입니다") => {
   if (history.location.pathname !== "/auth") {
