@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
+import { removeToken } from "../utils/handleToken";
 import Button from "./common/Button";
 import Todo from "./Todo";
 import TodoCreate from "./TodoCreate";
@@ -27,7 +28,9 @@ const TodoList = () => {
           <Button style_type="primary" onClick={setWriteFormOpen}>
             Todo 등록
           </Button>
-          <Button style_type="secondary">로그아웃</Button>
+          <Button onClick={() => removeToken} style_type="secondary">
+            로그아웃
+          </Button>
         </div>
       </div>
       <ul className="max-w-4xl p-10 mx-auto mt-10 mb-5 flex flex-col gap-1 divide-y border border-solid border-gray-200 rounded-lg">
