@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { TodoFormType } from "../types/todo";
-import Button from "./common/Button";
+import { TodoFormType } from "../../types/todo";
+import Button from "./Button";
 
 interface TodoFormProps {
   value?: TodoFormType;

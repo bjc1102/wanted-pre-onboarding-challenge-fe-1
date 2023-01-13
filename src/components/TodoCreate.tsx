@@ -4,7 +4,7 @@ import { openAnimation, TodoVars } from "../utils/animation";
 
 import useForm from "../hooks/useForm";
 import { TodoInitialValue as initialValue } from "../static/const";
-import TodoForm from "./TodoForm";
+import TodoForm from "./common/TodoForm";
 import useCreateTodo from "../hooks/queries/Todo/useCreateTodo";
 
 import { TodoFormType } from "../types/todo";

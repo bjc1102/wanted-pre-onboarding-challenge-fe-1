@@ -3,7 +3,7 @@ import useUpdateTodo from "../hooks/queries/Todo/useUpdateTodo";
 import useForm from "../hooks/useForm";
 import { TodoDataResponse, TodoFormType } from "../types/todo";
 import Button from "./common/Button";
-import TodoForm from "./TodoForm";
+import TodoForm from "./common/TodoForm";
 
 interface TodoUpdateProps {
   todo: TodoDataResponse;
