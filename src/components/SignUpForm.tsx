@@ -3,16 +3,13 @@ import useForm from "../hooks/useForm";
 import { SignInitialValue } from "../static/const";
 import { SignFormType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
-import useSignUp from "../hooks/queries/Auth/useSignUp";
 import Input from "./common/Input";
 import Button from "./common/Button";
 import SignForm from "./common/SignForm";
 import { useAuth } from "../hooks/Auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const auth = useAuth();
-  const navigate = useNavigate();
   const { values, handleChange, handleSubmit, error } = useForm<SignFormType>({
     initialValue: SignInitialValue,
     validate: signValidation,
