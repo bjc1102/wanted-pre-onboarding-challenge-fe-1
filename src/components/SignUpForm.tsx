@@ -7,15 +7,16 @@ import useSignUp from "../hooks/queries/Auth/useSignUp";
 import Input from "./common/Input";
 import Button from "./common/Button";
 import SignForm from "./common/SignForm";
+import { useAuth } from "../hooks/Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const SignUpMutate = useSignUp();
-  const SignUpFormSubmit = (value: SignFormType) => SignUpMutate(value);
-
+  const auth = useAuth();
+  const navigate = useNavigate();
   const { values, handleChange, handleSubmit, error } = useForm<SignFormType>({
     initialValue: SignInitialValue,
     validate: signValidation,
-    onSubmit: SignUpFormSubmit,
+    onSubmit: auth.SignUp(auth.SignNavigateCallback("")),
   });
 
   function hasInputError(value: keyof SignFormType) {

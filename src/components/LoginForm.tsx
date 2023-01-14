@@ -1,22 +1,22 @@
 import React from "react";
 import { SignInitialValue } from "../static/const";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { SignFormType } from "../types/form";
 import signValidation, { isFormValidate } from "../utils/validate";
-import useSignin from "../hooks/queries/Auth/useSignin";
 import Input from "./common/Input";
 import SignForm from "./common/SignForm";
 import Button from "./common/Button";
+import { useAuth } from "../hooks/Auth/AuthProvider";
 
 const LoginForm = () => {
-  const SignInMutate = useSignin();
-  const loginFormSubmit = (value: SignFormType) => SignInMutate(value);
-
+  const auth = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { values, handleChange, handleSubmit, error } = useForm<SignFormType>({
     initialValue: SignInitialValue,
     validate: signValidation,
-    onSubmit: loginFormSubmit,
+    onSubmit: auth.SignIn(auth.SignNavigateCallback(from)),
   });
 
   function hasInputError(value: keyof SignFormType) {
