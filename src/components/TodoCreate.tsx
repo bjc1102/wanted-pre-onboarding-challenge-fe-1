@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { openAnimation, TodoVars } from "../utils/animation";
+import { openAnimation } from "../utils/animation";
 
 import useForm from "../hooks/useForm";
 import { TodoInitialValue as initialValue } from "../static/const";

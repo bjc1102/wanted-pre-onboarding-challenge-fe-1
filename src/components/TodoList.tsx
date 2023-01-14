@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useAuth } from "../hooks/Auth/AuthProvider";
 import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
 import { removeToken } from "../utils/handleToken";
 import Button from "./common/Button";
@@ -9,8 +10,7 @@ import TodoCreate from "./TodoCreate";
 const TodoList = () => {
   const [isWriteFormOpen, setIsWriteFormOpen] = React.useState(false);
   const setWriteFormOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
-
-  const { todoList } = useGetTodoList();
+  const todoList = useGetTodoList();
 
   const todoSpreader = () => {
     if (todoList?.length === 0)

@@ -5,7 +5,6 @@ import { TodoDataResponse } from "../types/todo";
 import { useSearchParams } from "react-router-dom";
 import TodoMenu from "./TodoMenu";
 import TodoUpdate from "./TodoUpdate";
-import { toast } from "react-toastify";
 
 interface TodoProps {
   todo: TodoDataResponse;

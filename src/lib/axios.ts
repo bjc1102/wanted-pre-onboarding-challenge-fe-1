@@ -1,5 +1,6 @@
-import axios, { AxiosRequestHeaders } from "axios";
+import axios, { AxiosError, AxiosRequestHeaders } from "axios";
 import { removeToken } from "../utils/handleToken";
+import { ErrorToast } from "../utils/tostify";
 
 const baseURL = "http://localhost:8080";
 
@@ -39,8 +40,9 @@ instance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  (error: AxiosError) => {
     removeToken();
+    ErrorToast(error.message);
     return Promise.resolve();
   }
 );

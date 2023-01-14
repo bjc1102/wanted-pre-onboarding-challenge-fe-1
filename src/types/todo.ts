@@ -1,6 +1,3 @@
-import { createObjType } from "./util";
-import { TodoInitialValue as initialTodo } from "../static/const";
-
 export interface TodoDataResponse {
   id: string;
   title: string;
