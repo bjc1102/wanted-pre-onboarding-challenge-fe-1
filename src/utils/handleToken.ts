@@ -1,11 +1,13 @@
-import history from "../lib/history";
+function removeToken() {
+  localStorage.removeItem("token");
+}
 
-const handleToken = (msg = "로그인이 필요한 서비스입니다") => {
-  if (history.location.pathname !== "/auth") {
-    localStorage.removeItem("token");
-    history.replace("/auth");
-    window.alert(msg);
-  }
-};
+function storageToken(token: string) {
+  localStorage.setItem("token", token);
+}
 
-export default handleToken;
+function findToken() {
+  return !!localStorage.getItem("token");
+}
+
+export { removeToken, storageToken, findToken };

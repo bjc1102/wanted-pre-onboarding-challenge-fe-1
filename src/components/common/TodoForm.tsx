@@ -1,22 +1,20 @@
-import React from "react";
-import { TodoType } from "../types/todo";
+import React, { ReactNode } from "react";
+import { TodoFormType } from "../../types/todo";
 
 interface TodoFormProps {
-  value?: TodoType;
+  value?: TodoFormType;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  handleClose: (
-    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
-  ) => void;
+  children: ReactNode;
 }
 
 const TodoForm = ({
   value,
   handleChange,
   handleSubmit,
-  handleClose,
+  children,
 }: TodoFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -35,23 +33,9 @@ const TodoForm = ({
         name="content"
         onChange={handleChange}
         placeholder="TODO 내용을 입력해주세요"
-        className="w-full p-2.5 placeholder:text-gray-400 rounded-sm bg-gray-50 min-h-[40px] block text-sm border border-solid border-gray-300"
+        className="w-full p-2.5 placeholder:text-gray-400 rounded-sm bg-gray-50 min-h-[100px] block text-sm border border-solid border-gray-300"
       />
-      <div className="flex float-right mt-3 gap-1 text-base">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          등록하기
-        </button>
-        <button
-          onClick={handleClose}
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          type="button"
-        >
-          취소하기
-        </button>
-      </div>
+      <div className="flex float-right mt-3 gap-1 text-base">{children}</div>
     </form>
   );
 };

@@ -1,22 +1,17 @@
-import { AxiosResponse } from "axios";
 import React, { useEffect } from "react";
-import { ErrorProps, SignType } from "../types/form";
-import { TodoType } from "../types/todo";
-import { ValueType } from "../types/util";
+import { ChangeTypeOfKeys } from "../types/util";
 
-interface SubmitType {
-  API: (value: ValueType) => Promise<AxiosResponse<any, any>>;
-  onSuccess: (value: any) => void;
-}
-interface FormProps {
-  initialValue: ValueType;
-  validate?: (initialValue: SignType) => ErrorProps;
-  onSubmit: () => SubmitType;
+interface FormProps<Type> {
+  initialValue: Type;
+  validate?: (initialValue: Type) => ChangeTypeOfKeys<Type>;
+  onSubmit: (value: Type) => void;
 }
 
-const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
+function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
   const [values, setValues] = React.useState(initialValue);
-  const [error, setError] = React.useState<ErrorProps>({});
+  const [error, setError] = React.useState<
+    ChangeTypeOfKeys<typeof initialValue>
+  >({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,17 +22,11 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { API, onSuccess } = onSubmit();
-
-    API(values)
-      .then((response) => {
-        onSuccess(response);
-      })
-      .catch((error) => setError({ error: "에러가 발생했습니다." }));
+    onSubmit(values);
   };
 
   useEffect(() => {
-    if (validate) setError(validate(values as SignType));
+    if (validate) setError(validate(values));
   }, [values]);
 
   return {
@@ -46,6 +35,6 @@ const useForm = ({ initialValue, validate, onSubmit }: FormProps) => {
     handleSubmit,
     error,
   };
-};
+}
 
 export default useForm;

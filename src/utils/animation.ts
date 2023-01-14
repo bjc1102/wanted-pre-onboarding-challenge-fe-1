@@ -29,3 +29,11 @@ export const TodoVars = {
     },
   },
 };
+
+export const openAnimation = {
+  variants: TodoVars,
+  initial: "start",
+  animate: "animation",
+  exit: "end",
+  key: "num",
+};
