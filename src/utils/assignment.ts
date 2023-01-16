@@ -2,7 +2,12 @@
 // create Store는 리듀서를 인자로받아 store를 리턴하는 함수이다.
 // store는 subscribe(), dispatch(), getState()를 메서드로 가진 객체다.
 
-function todoList(state: any = [], action: any) {
+interface Action {
+  type: "ADD_TODO";
+  text: string;
+}
+
+function todoList(state: any = [], action: Action) {
   switch (action.type) {
     case "ADD_TODO":
       return state.concat([action.text]);
@@ -48,6 +53,16 @@ const createStore = function <S, A>(
 };
 
 const store = createStore(todoList, []);
+console.log(
+  store.dispatch(
+    store.dispatch({
+      type: "ADD_TODO",
+      text: "Read the docs",
+    })
+  )
+);
+console.log(store.getState());
+console.log(store.subscribe(() => {}));
 
 // store.getState();
 // store.subscribe();
