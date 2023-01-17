@@ -5,7 +5,7 @@ import { TodoAPI } from "../../../lib/instance";
 import { TodoListKey } from "../../../static/const";
 import { TodoDataResponse } from "../../../types/todo";
 import { todoSlice } from "../../../utils/todoSlice";
-import { SuccessToast } from "../../../utils/tostify";
+import { ErrorToast, SuccessToast } from "../../../utils/tostify";
 
 const useDeleteTodo = () => {
   const queryClient = useQueryClient();
@@ -19,6 +19,9 @@ const useDeleteTodo = () => {
         return [...prev, ...next];
       });
       SuccessToast("TODO가 삭제되었습니다.");
+    },
+    onError() {
+      ErrorToast("Todo를 삭제하던 중 에러가 발생했습니다...");
     },
   });
 
