@@ -17,8 +17,6 @@ const ConfirmModal = ({
   handleSubmit,
   handleClose,
 }: ConfirmModalProps) => {
-  if (!isModalOpen) return null;
-
   const ref = React.useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -33,6 +31,8 @@ const ConfirmModal = ({
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
+
+  if (!isModalOpen) return null;
 
   return ReactDOM.createPortal(
     <div className="fixed bg-black bg-opacity-60 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
