@@ -1,6 +1,5 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { useAuth } from "../hooks/Auth/AuthProvider";
 import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
 import { removeToken } from "../utils/handleToken";
 import Button from "./common/Button";
