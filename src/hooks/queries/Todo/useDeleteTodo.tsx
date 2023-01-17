@@ -7,14 +7,14 @@ import { TodoDataResponse } from "../../../types/todo";
 import { todoSlice } from "../../../utils/todoSlice";
 import { SuccessToast } from "../../../utils/tostify";
 
-const useDeleteTodo = (id: string) => {
+const useDeleteTodo = () => {
   const queryClient = useQueryClient();
 
   const { mutate: deleteTodo } = useMutation(TodoAPI.deleteTodo, {
-    onSuccess() {
+    onSuccess(data) {
       queryClient.setQueryData<TodoDataResponse[]>(TodoListKey, (oldData) => {
         if (!oldData) return [];
-        const index = oldData.findIndex((v) => v.id === id);
+        const index = oldData.findIndex((v) => v.id === data);
         const { prev, next } = todoSlice(oldData, index);
         return [...prev, ...next];
       });
