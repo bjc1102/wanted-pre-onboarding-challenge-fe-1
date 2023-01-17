@@ -41,9 +41,9 @@ const TodoAPI = {
     const result = await instance.put(`/todos/${id}`, value);
     return result.data.data;
   },
-  deleteTodo: async (id: string): Response<null> => {
+  deleteTodo: async (id: string): Response<string> => {
     const result = await instance.delete(`/todos/${id}`);
-    return result.data.data;
+    return id;
   },
 };
 
