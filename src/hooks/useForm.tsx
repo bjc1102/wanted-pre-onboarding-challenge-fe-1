@@ -9,9 +9,6 @@ interface FormProps<Type> {
 
 function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
   const [values, setValues] = React.useState(initialValue);
-  const [error, setError] = React.useState<
-    ChangeTypeOfKeys<typeof initialValue>
-  >({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -25,15 +22,11 @@ function useForm<T>({ initialValue, validate, onSubmit }: FormProps<T>) {
     onSubmit(values);
   };
 
-  useEffect(() => {
-    if (validate) setError(validate(values));
-  }, [values]);
-
   return {
     values,
     handleChange,
     handleSubmit,
-    error,
+    error: validate && validate(values),
   };
 }
 
