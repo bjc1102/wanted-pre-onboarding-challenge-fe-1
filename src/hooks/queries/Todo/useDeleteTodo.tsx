@@ -5,7 +5,7 @@ import { TodoAPI } from "../../../lib/instance";
 import { TodoListKey } from "../../../static/const";
 import { TodoDataResponse } from "../../../types/todo";
 import { todoSlice } from "../../../utils/todoSlice";
-import { ErrorToast, SuccessToast } from "../../../utils/tostify";
+import { ErrorToast, SuccessToast } from "../../../lib/tostify";
 
 const useDeleteTodo = () => {
   const queryClient = useQueryClient();

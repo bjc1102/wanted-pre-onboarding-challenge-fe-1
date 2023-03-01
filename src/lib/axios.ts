@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestHeaders } from "axios";
 import { removeToken } from "../utils/handleToken";
-import { ErrorToast } from "../utils/tostify";
+import { ErrorToast } from "./tostify";
 
 const baseURL = "http://localhost:8080";
 

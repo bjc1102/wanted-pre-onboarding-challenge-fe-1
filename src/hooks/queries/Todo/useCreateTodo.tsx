@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TodoAPI } from "../../../lib/instance";
 import { TodoListKey } from "../../../static/const";
 import { TodoDataResponse } from "../../../types/todo";
-import { ErrorToast, SuccessToast } from "../../../utils/tostify";
+import { ErrorToast, SuccessToast } from "../../../lib/tostify";
 
 const useCreateTodo = (onSucceeded?: () => void) => {
   const queryClient = useQueryClient();
