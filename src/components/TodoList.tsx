@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useGetTodoList from "../hooks/queries/Todo/useGetTodoList";
 import { removeToken } from "../utils/handleToken";
 import Button from "./common/Button";
@@ -8,13 +9,19 @@ import TodoCreate from "./TodoCreate";
 
 const TodoList = () => {
   const [isWriteFormOpen, setIsWriteFormOpen] = React.useState(false);
-  const setWriteFormOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
+  const navigate = useNavigate();
   const todoList = useGetTodoList();
+  const setWriteFormOpen = () => setIsWriteFormOpen(!isWriteFormOpen);
 
   const todoSpreader = () => {
     if (todoList?.length === 0)
       return <p className="text-center">TODO를 등록해주세요!</p>;
     return todoList?.map((v) => <Todo key={v.id} todo={v} />);
+  };
+
+  const Logout = () => {
+    removeToken();
+    navigate("/auth", { replace: true });
   };
 
   return (
@@ -27,7 +34,7 @@ const TodoList = () => {
           <Button style_type="primary" onClick={setWriteFormOpen}>
             Todo 등록
           </Button>
-          <Button onClick={() => removeToken} style_type="secondary">
+          <Button onClick={Logout} style_type="secondary">
             로그아웃
           </Button>
         </div>
